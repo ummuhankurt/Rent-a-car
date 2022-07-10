@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -10,36 +11,55 @@ namespace ConcoleUI
     {
         static void Main(string[] args)
         {
-            ProductManager productManager = new ProductManager(new InMemoryProductDal());
-            Console.WriteLine("Bütün ürünler : ");
-            foreach (var product in productManager.GetAll())
+            //CarTest();
+            Console.WriteLine("Car Details ;");
+
+            CarManager carManager = new CarManager(new EfCarDal());
+            foreach (var item in carManager.GetProductDetails())
             {
-                Console.WriteLine(product.Description);
-            }
-            Console.WriteLine("Ürün eklndikten sonra ürünleri listeleme");
-            Car car = new Car { Id = 6, BrandId = 8, ColorId = 9, ModelYear = new DateTime(2014), DailyPrice = 178000, Description = "Mini Cooper" };
-            productManager.Add(car);
-            foreach (var product in productManager.GetAll())
-            {
-                Console.WriteLine(product.Description);
-            }
-            Console.WriteLine("id si 6 olan ürünün fiyatini 200000 olacak şekilde update ettik");
-            var carToUpdate = productManager.GetById(6);
-            carToUpdate.DailyPrice = 200000;
-            productManager.Update(carToUpdate);
-            foreach (var product in productManager.GetAll())
-            {
-                Console.WriteLine(product.Description + " " + product.DailyPrice);
-            }
-            Console.WriteLine("id si 6 olan productı getirme");
-            Console.WriteLine(productManager.GetById(6).Description);
-            Console.WriteLine("id si 6 olan ürünü sileim");
-            productManager.Delete(productManager.GetById(6));
-            foreach (var product in productManager.GetAll())
-            {
-                Console.WriteLine(product.Description);
+                Console.WriteLine(item.Name + " / " + item.Brand + " / " + item.DailyPrice + " / " + item.Color);
             }
 
+        }
+
+        private static void CarTest()
+        {
+            CarManager productManager = new CarManager(new EfCarDal());
+            // GetCarsByBrandId
+            foreach (var item in productManager.GetCarsByBrandId(5))
+            {
+                Console.WriteLine(item.Name);
+            }
+            // bütün ürünler
+            foreach (var item in productManager.GetAll())
+            {
+                Console.WriteLine(item.Name);
+            }
+            // GetCarsByColorId
+            foreach (var item in productManager.GetCarsByColorId(5))
+            {
+                Console.WriteLine(item.Name);
+            }
+            // Araba isminin minimum 2 karakter olması gerekiyor. Bunu bussiness'te kontrol ettik. Bu nesne veritabanına eklenmez.
+            Car car = new Car()
+            {
+                Name = "a",
+                BrandId = 9,
+                ColorId = 8,
+                DailyPrice = 800000,
+                ModelYear = 2018
+            };
+            // günlük fiyat 0'dan büyük olması gerekiyor. Bunu bussiness'te kontrol ettik. Bu nesne veritabanına eklenmez.
+            Car car2 = new Car()
+            {
+                Name = "Qashqai",
+                BrandId = 9,
+                ColorId = 8,
+                DailyPrice = 0,
+                ModelYear = 2018
+            };
+            productManager.Add(car);
+            productManager.Add(car2);
         }
     }
 }

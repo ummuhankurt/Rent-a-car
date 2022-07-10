@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{DEADE71B-375E-4AD9-A77D-B6CABFB11909}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcoleUI", "ConcoleUI\ConcoleUI.csproj", "{B4DDC923-7BE0-4E9E-9021-43E7E7F0EFBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConcoleUI", "ConcoleUI\ConcoleUI.csproj", "{B4DDC923-7BE0-4E9E-9021-43E7E7F0EFBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{36AB6AE9-F86A-4DF4-92C3-E90C2F1B48D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B4DDC923-7BE0-4E9E-9021-43E7E7F0EFBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4DDC923-7BE0-4E9E-9021-43E7E7F0EFBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4DDC923-7BE0-4E9E-9021-43E7E7F0EFBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36AB6AE9-F86A-4DF4-92C3-E90C2F1B48D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36AB6AE9-F86A-4DF4-92C3-E90C2F1B48D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36AB6AE9-F86A-4DF4-92C3-E90C2F1B48D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36AB6AE9-F86A-4DF4-92C3-E90C2F1B48D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,31 +12,31 @@ namespace ConcoleUI
         static void Main(string[] args)
         {
             //CarTest();
-            Console.WriteLine("Car Details ;");
+            //Console.WriteLine("Car Details ;");
 
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var item in carManager.GetProductDetails())
-            {
-                Console.WriteLine(item.Name + " / " + item.Brand + " / " + item.DailyPrice + " / " + item.Color);
-            }
-
+            //foreach (var item in carManager.GetProductDetails().Data)
+            //{
+            //    Console.WriteLine(item.Name + " / " + item.Brand + " / " + item.DailyPrice + " / " + item.Color);
+            //}
+            Console.WriteLine(carManager.GetCarsByBrandId(90).Message);
         }
 
         private static void CarTest()
         {
             CarManager productManager = new CarManager(new EfCarDal());
             // GetCarsByBrandId
-            foreach (var item in productManager.GetCarsByBrandId(5))
+            foreach (var item in productManager.GetCarsByBrandId(5).Data)
             {
                 Console.WriteLine(item.Name);
             }
             // bütün ürünler
-            foreach (var item in productManager.GetAll())
+            foreach (var item in productManager.GetAll().Data)
             {
                 Console.WriteLine(item.Name);
             }
             // GetCarsByColorId
-            foreach (var item in productManager.GetCarsByColorId(5))
+            foreach (var item in productManager.GetCarsByColorId(5).Data)
             {
                 Console.WriteLine(item.Name);
             }

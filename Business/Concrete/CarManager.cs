@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -16,37 +17,55 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new DataResult<List<Car>>(_carDal.GetAll(),true);
         }
             
-        public List<Car> GetCarsByColorId(int id )
+        public IDataResult<List<Car>> GetCarsByColorId(int id )
         {
-            return _carDal.GetAll(p => p.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id),"işlem gerçekleşti");
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(p => p.BrandId == id);
+            if(id == 90)
+            {
+                return new ErrorDataResult<List<Car>>("Geçersiz id");
+            }
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id),"İşlem gerçekleşti");
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if(car.Name.Length < 2 )
             {
-                Console.WriteLine("Araba ismi minimum 2 karakter olmalıdır");
+                return new ErrorResult("Araba ismi minimum 2 karakter olmalıdır");
             }
             if(car.DailyPrice <= 0 )
             {
-                Console.WriteLine("Arabanın günlük fiyatı 0 dan büyük olmalıdır.");
+                return new ErrorResult("Arabanın günlük fiyatı 0 dan büyük olmalıdır.");
             }
             _carDal.Add(car);
+            return new SuccessResult("Added");
         }
 
-        public List<CarDetailDto> GetProductDetails()
+        public IDataResult<List<CarDetailDto>> GetProductDetails()
         {
-            return _carDal.GetProductDetails();
+            return new DataResult<List<CarDetailDto>>(_carDal.GetProductDetails(),true);
         }
+
+        public IResult Delete(Car car)
+        {
+            _carDal.Delete(car);
+            return new SuccessResult("Deleted");
+        }
+
+        public IResult Update(Car car)
+        {
+            _carDal.Update(car);
+            return new SuccessResult("Updated");
+        }
+
     }
 }

@@ -12,15 +12,49 @@ namespace ConcoleUI
         static void Main(string[] args)
         {
             //CarTest();
-            //Console.WriteLine("Car Details ;");
-
-            CarManager carManager = new CarManager(new EfCarDal());
-            //foreach (var item in carManager.GetProductDetails().Data)
-            //{
-            //    Console.WriteLine(item.Name + " / " + item.Brand + " / " + item.DailyPrice + " / " + item.Color);
-            //}
-            Console.WriteLine(carManager.GetCarsByBrandId(90).Message);
+            //ColorTest();
+            //UserAdd();
+            //CustomerAdd();
+            Rental rental = new Rental
+            {
+                CarId = 2,
+                CustomerId = 1,
+                RentDate = new DateTime(2022,07,16),
+                ReturnDate = new DateTime(2022,07,25)
+            };
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            Console.WriteLine(rentalManager.Add(rental).Message);
         }
+        
+       
+        private static void CustomerAdd()
+        {
+            Customer customer = new Customer
+            {
+                UserId = 1,
+                CompanyName = "YapıKredi"
+            };
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(customer);
+        }
+
+        private static void UserAdd()
+        {
+            User user = new User
+            {
+                FirstName = "Ayşe",
+                LastName = "Yeşim",
+                Email = "ayseyesim.23@outlook.com",
+                Password = "12345"
+            };
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(user);
+            foreach (var item in userManager.GetAll())
+            {
+                Console.WriteLine(item.FirstName);
+            }
+        }
+
 
         private static void CarTest()
         {
@@ -60,6 +94,12 @@ namespace ConcoleUI
             };
             productManager.Add(car);
             productManager.Add(car2);
+            CarManager carManager = new CarManager(new EfCarDal());
+            //foreach (var item in carManager.GetProductDetails().Data)
+            //{
+            //    Console.WriteLine(item.Name + " / " + item.Brand + " / " + item.DailyPrice + " / " + item.Color);
+            //}
+            Console.WriteLine(carManager.GetCarsByBrandId(90).Message);
         }
     }
 }

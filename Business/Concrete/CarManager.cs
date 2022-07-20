@@ -67,5 +67,9 @@ namespace Business.Concrete
             return new SuccessResult("Updated");
         }
 
+        public IDataResult<Car> Get(int id)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id));
+        }
     }
 }

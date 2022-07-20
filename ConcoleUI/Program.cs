@@ -49,7 +49,7 @@ namespace ConcoleUI
             };
             UserManager userManager = new UserManager(new EfUserDal());
             userManager.Add(user);
-            foreach (var item in userManager.GetAll())
+            foreach (var item in userManager.GetAll().Data)
             {
                 Console.WriteLine(item.FirstName);
             }

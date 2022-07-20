@@ -27,9 +27,14 @@ namespace Business.Concrete
             return new SuccessResult("user deleted");
         }
 
-        public List<User> GetAll()
+        public IDataResult<User> Get(int id)
         {
-            return _userDal.GetAll();
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == id));
+        }
+
+        public IDataResult<List<User>> GetAll()
+        {
+            return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
         public IResult Update(User user)

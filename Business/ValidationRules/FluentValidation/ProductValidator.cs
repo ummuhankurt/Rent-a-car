@@ -13,7 +13,7 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.Name).NotEmpty();
             RuleFor(c => c.Name).MinimumLength(2);
             RuleFor(c => c.DailyPrice).GreaterThan(0);
-            RuleFor(c => c.Name).Must(StartsWitA).WithMessage("Arabanın adı A harfi ile başlamalıdır.");
+            //RuleFor(c => c.Name).Must(StartsWitA).WithMessage("Arabanın adı A harfi ile başlamalıdır.");
         }
 
         private bool StartsWitA(string arg)

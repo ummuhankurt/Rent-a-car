@@ -41,14 +41,7 @@ namespace Business.Concrete
         }
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Car car)
-        {
-            
-            //ValidationTool.Validate(new ProductValidator(), car); -> ValidationAspect 
-            //log
-            //cacheremove
-            //performance
-            //transaction
-            //authorization
+        {   
             _carDal.Add(car);
             return new SuccessResult("Added");
         }

@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         ICarService _carService;
 
         public CarsController(ICarService carService)
-        {
+        { 
             _carService = carService;
         }
         [HttpGet("getall")]

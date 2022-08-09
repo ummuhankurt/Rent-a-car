@@ -40,19 +40,19 @@ namespace ConcoleUI
 
         private static void UserAdd()
         {
-            User user = new User
-            {
-                FirstName = "Ayşe",
-                LastName = "Yeşim",
-                Email = "ayseyesim.23@outlook.com",
-                Password = "12345"
-            };
-            UserManager userManager = new UserManager(new EfUserDal());
-            userManager.Add(user);
-            foreach (var item in userManager.GetAll().Data)
-            {
-                Console.WriteLine(item.FirstName);
-            }
+            //User user = new User
+            //{
+            //    FirstName = "Ayşe",
+            //    LastName = "Yeşim",
+            //    Email = "ayseyesim.23@outlook.com",
+            //    Password = "12345"
+            //};
+            //UserManager userManager = new UserManager(new EfUserDal());
+            //userManager.Add(user);
+            //foreach (var item in userManager.GetAll().Data)
+            //{
+            //    Console.WriteLine(item.FirstName);
+            //}
         }
 
 

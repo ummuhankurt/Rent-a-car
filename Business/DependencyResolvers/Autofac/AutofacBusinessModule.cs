@@ -43,6 +43,15 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
+            builder.RegisterType<BrandManager>().As<IBrandService>().SingleInstance();
+            builder.RegisterType<EfBrandDal>().As<IBrandDal>().SingleInstance();
+
+            builder.RegisterType<AddRentalDtoManager>().As<IAddRentalDtoService>().SingleInstance();
+            builder.RegisterType<EfAddRentalDal>().As<IAddRentalDal>().SingleInstance();
+
+            builder.RegisterType<CreditCartManager>().As<ICreditCartService>().SingleInstance();
+            builder.RegisterType<EfCreditCartDal>().As<ICreditCartDal>().SingleInstance();
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()

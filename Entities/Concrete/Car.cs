@@ -13,5 +13,6 @@ namespace Entities.Concrete
         public int ColorId { get; set; }
         public int ModelYear { get; set; }
         public double DailyPrice { get; set; }
+        public List<CarImage> Images { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, ReCapContext>, ICarDal
     {
-        public List<CarDetailDto> GetProductDetails()
+        public List<CarDetailDto> GetProductDetails(Expression<Func<CarDetailDto,bool>> filter=null)
         {
             using (ReCapContext context = new ReCapContext())
             {
@@ -21,10 +21,24 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.ColorId equals co.Id
                              join b in context.Brands
                              on c.BrandId equals b.Id
-                             select new CarDetailDto { Id = c.Id, Brand = b.Name, Color = co.Name, Name = c.Name,DailyPrice = c.DailyPrice };
-                return result.ToList();
+                             select new CarDetailDto { Id = c.Id, Brand = b.BrandName, BrandId = b.Id, Color = co.ColorName,
+                                 Name = c.Name,DailyPrice = c.DailyPrice ,ColorId = co.Id};
+                return filter == null? result.ToList() : result.Where(filter).ToList();
             }
             
         }
+
+        //public List<ColorAndBrandDto> GetDetalisByBrandAndColor(Expression<Func<ColorAndBrandDto, bool>> filter = null)
+        //{
+        //    using (ReCapContext context = new ReCapContext())
+        //    {
+        //        var result = from b in context.Brands join c in context.Cars on
+        //                     b.Id equals c.BrandId join co in context.Colors
+        //                     on c.ColorId equals co.Id select new ColorAndBrandDto { Id = c.Id , BrandName = b.BrandName , ColorName = co.ColorName};
+
+        //        return filter == null ? result.ToList() : result.Where(filter).ToList();
+
+        //    }
+        //}
     }
 }

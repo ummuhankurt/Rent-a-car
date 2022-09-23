@@ -2,8 +2,10 @@
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -29,6 +31,7 @@ namespace Business.Concrete
             }
         }
 
+
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
@@ -43,6 +46,11 @@ namespace Business.Concrete
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
+        }
+
+        public IDataResult<List<Rental>> GetRentalDetails(int id)
+        {
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetRentalDetalis(r => r.CarId == id));
         }
 
         public IResult Update(Rental rental)

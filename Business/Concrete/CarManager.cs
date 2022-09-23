@@ -13,6 +13,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace Business.Concrete
@@ -28,34 +29,48 @@ namespace Business.Concrete
         [PerformanceAspect(5)] //bu metodun çalışması 5 saniyeyi geçerse beni uyar.
         public IDataResult<List<Car>> GetAll()
         {
-            return new DataResult<List<Car>>(_carDal.GetAll(),true);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
-            
-        public IDataResult<List<Car>> GetCarsByColorId(int id )
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id),"işlem gerçekleşti");
-        }
-        public IDataResult<List<Car>> GetCarsByBrandId(int id)
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int id)
         {
             if(id == 90)
             {
-                return new ErrorDataResult<List<Car>>("Geçersiz id");
+                return new ErrorDataResult<List<CarDetailDto>>("Geçersiz id");
             }
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id),"İşlem gerçekleşti");
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetProductDetails(p => p.BrandId == id),"İşlem gerçekleşti");
         }
+
+        public IDataResult<List<CarDetailDto>> GetCarsByColorId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetProductDetails(p => p.ColorId == id), "İşlem gerçekleşti");
+        }
+
+
         [CacheRemoveAspect("")]
         [SecuredOperation("product.add,admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Car car)
         {   
+
             _carDal.Add(car);
             return new SuccessResult("Added");
         }
 
-        public IDataResult<List<CarDetailDto>> GetProductDetails()
+
+        public IDataResult<List<CarDetailDto>> GetProductDetailByBrand(int brandId)
         {
-            return new DataResult<List<CarDetailDto>>(_carDal.GetProductDetails(),true);
+            return new DataResult<List<CarDetailDto>>(_carDal.GetProductDetails(c => c.BrandId == brandId), true);
         }
+        public IDataResult<List<CarDetailDto>> GetCarDetailsById(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetProductDetails(c => c.Id == id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetProductDetalis()
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetProductDetails());
+        }
+
         [CacheRemoveAspect("IProducService.Get")]
         public IResult Delete(Car car)
         {
@@ -78,6 +93,11 @@ namespace Business.Concrete
         public IResult AddTransactionalTest(Car car)
         {
             throw new NotImplementedException();
+        }
+
+        public IDataResult<List<CarDetailDto>> GetDetalisByBrandAndColor(string colorName,string brandName)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetProductDetails(c => c.Brand == brandName && c.Color == colorName));
         }
     }
 }

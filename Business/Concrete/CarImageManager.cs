@@ -5,6 +5,7 @@ using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,11 @@ namespace Business.Concrete
             }
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
         }
+        public IDataResult<List<ImageDetailDto>> GetCarImages(int carId)
+        {
 
+            return new SuccessDataResult<List<ImageDetailDto>>(_carImageDal.GetProductDetails(c=> c.CarId == carId));
+        }
         private IDataResult<List<CarImage>> GetDefaultImage(int carId)
         {
             List<CarImage> carImage = new List<CarImage>();
@@ -72,6 +77,8 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
+
+
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = _fileHelper.Update(file, PathConstants.ImagesPath + carImage.ImagePath, PathConstants.ImagesPath);
@@ -88,5 +95,16 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
+
+        private IResult CheckIfCarImageExist(int carId)
+        {
+            var result = _carImageDal.GetProductDetails(c => c.Id == carId).Count;
+            if (result == 0)
+            {
+                return new ErrorResult();
+            }
+            return new SuccessResult();
+        }
+
     }
 }

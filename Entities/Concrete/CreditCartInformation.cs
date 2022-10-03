@@ -11,6 +11,6 @@ namespace Entities.Concrete
         public string CreditCartNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int Cvv { get; set; }  
+        public string Cvv { get; set; }  
     }
 }

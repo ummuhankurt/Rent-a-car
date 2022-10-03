@@ -18,7 +18,7 @@ namespace Business.Concrete
         {
             _creditCarDal = creditCarDal;
         }
-        //[ValidationAspect(typeof(CreditCartValidator))]
+        [ValidationAspect(typeof(CreditCartValidator))]
         public IResult Add(CreditCartInformation creditCartInformation)
         {
             _creditCarDal.Add(creditCartInformation);

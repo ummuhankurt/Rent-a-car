@@ -8,11 +8,11 @@ namespace Entities.Concrete
     public class Car : IEntity
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } // Name : Fiorino, Qashqai gibi. Markada nissan.
         public int BrandId { get; set; }
         public int ColorId { get; set; }
         public int ModelYear { get; set; }
         public double DailyPrice { get; set; }
-        public List<CarImage> Images { get; set; }
+        //public List<CarImage> Images { get; set; }
     }
 }

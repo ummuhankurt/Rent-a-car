@@ -29,7 +29,14 @@ namespace Business.Concrete
         [PerformanceAspect(5)] //bu metodun çalışması 5 saniyeyi geçerse beni uyar.
         public IDataResult<List<Car>> GetAll()
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+            if(_carDal.GetAll().Count > 0)
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll());
+            }
+            else
+            {
+                return new ErrorDataResult<List<Car>>();
+            }
         }
         public IDataResult<List<CarDetailDto>> GetCarsByBrandId(int id)
         {
@@ -47,15 +54,13 @@ namespace Business.Concrete
 
 
         [CacheRemoveAspect("")]
-        [SecuredOperation("product.add,admin")]
-        [ValidationAspect(typeof(ProductValidator))]
+        //[SecuredOperation("product.add,admin")]
+        //[ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Car car)
         {   
-
             _carDal.Add(car);
             return new SuccessResult("Added");
         }
-
 
         public IDataResult<List<CarDetailDto>> GetProductDetailByBrand(int brandId)
         {
@@ -77,8 +82,8 @@ namespace Business.Concrete
             _carDal.Delete(car);
             return new SuccessResult("Deleted");
         }
-        [CacheRemoveAspect("IProductService.Get")] //Bellekte, içinde Get olan bütün keyleri silmemesi için sadece Get değil, IProductService.Get yazıyoruz.
-        [ValidationAspect(typeof(ProductValidator))]
+        //[CacheRemoveAspect("IProductService.Get")] //Bellekte, içinde Get olan bütün keyleri silmemesi için sadece Get değil, IProductService.Get yazıyoruz.
+        //[ValidationAspect(typeof(ProductValidator))]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

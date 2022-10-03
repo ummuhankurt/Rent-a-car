@@ -10,11 +10,11 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CreditCartValidator()
         {
-            RuleFor(c => c.CreditCartNumber).NotEmpty();
             RuleFor(c => c.CreditCartNumber).MinimumLength(16);
+            RuleFor(c => c.CreditCartNumber).NotEmpty();
             RuleFor(c => c.FirstName).NotEmpty();
             RuleFor(c => c.LastName).NotEmpty();
-            RuleFor(c => c.Cvv).NotEmpty();
+            RuleFor(c => c.Cvv).MinimumLength(3);
         }
     }
 }
